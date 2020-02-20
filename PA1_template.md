@@ -1,8 +1,15 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
+title: 'Reproducible Research: Peer Assessment 1'
 author: "Jose Noriega"
 date: "15/2/2020"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+  html_notebook: 
+    toc: yes
+editor_options: 
+  chunk_output_type: console
 ---
 This assigment is about to describe in multiple parts a monitoring example project using R Markdown. We will need to write a report that answers the questions detailed in "Instruction.pdf" file using the data sample download in the "activity.zip" file. completing the entire assignment in this single R markdown document which can be processed by knitr and be transformed into an HTML file.
 Following the results per questions:
@@ -12,10 +19,9 @@ To load the data I used read.csv funtion, considering firt file as the headers a
 
 ```{r}
 data<-read.csv("activity.csv",header = TRUE,na.strings = "NA")
-head(data)
+
 ```
-
-
+head(data)
 ## What is mean total number of steps taken per day?
 
 I will calculate the mean total number steps taken by day, considery a tapply funtion which sum total steps by date, then calculate the mean of the StepsPerDay
@@ -24,25 +30,30 @@ The result is the next:
 ```{r}
 StepsPerDay<-tapply(data$steps,data$date,sum,na.rm = TRUE)
 MeanStepPerDay<-mean(StepsPerDay)
-MeanStepPerDay
+
 ```
+print(MeanStepPerDay)
 
 An histogram of the Total of number of steps by day is calculate and plot by the next code:
 
 ```{r}
 library(ggplot2)
 qplot(StepsPerDay,xlab = "Total Steps per day", ylab = "Frecuency",binwidth=500)
-```
 
+
+```
+print(qplot)
 
 ## What is the average daily activity pattern?
 To calculate the Mean and the Median number step by day, I used the following code with their results:
 ```{r}
 MeanStepPerDay<-mean(StepsPerDay)
-MeanStepPerDay
+print(MeanStepPerDay)
 MedianStepPerDay<-median(StepsPerDay)
-MedianStepPerDay
+print(MedianStepPerDay)
 ```
+print(MeanStepPerDay)
+print(MedianStepPerDay)
 
 For the Time series plot average number steps taken and the 5-minute interval that, on average, contains the maximun numer of step, resulting a graphics, I code the following:
 
@@ -50,6 +61,7 @@ For the Time series plot average number steps taken and the 5-minute interval th
 AveDayActPatt<-aggregate(x=list(meanSteps=data$steps),by=list(interval=data$interval),       FUN=mean,na.rm=TRUE)
 
 ggplot(data = AveDayActPatt,aes(x=interval,y=meanSteps))+geom_line()+ggtitle("Average Number of Steps Per Day")+xlab("5-minute interval")+ylab("Average Number of steps")
+print(ggplot)
 
 ```
 
@@ -58,7 +70,7 @@ ggplot(data = AveDayActPatt,aes(x=interval,y=meanSteps))+geom_line()+ggtitle("Av
 ```{r}
 MaxSteps<-which.max(AveDayActPatt$meanSteps)
 MostOfSteps<-gsub("([0-9]{1,2})([0-9]{2})","\\1:\\2",AveDayActPatt[MaxSteps,"interval"])
-MostOfSteps
+print(MostOfSteps)
 ```
 This "Interval number" indicates that 8.35 AM is the time when the average person is most active
 
@@ -67,7 +79,7 @@ This "Interval number" indicates that 8.35 AM is the time when the average perso
 The total number of missings values are calculate bu the next code
 ```{r}
 MissingValues<-length(which(is.na(data$steps)))
-MissingValues
+print(MissingValues)
 ```
 
 ## Make an Histogram of the number of total steps taken by day
@@ -78,6 +90,7 @@ TotalSteps<-activity[,c(lapply(.SD,sum)),.SDcols=c("steps"),by=.(date)]
 TotalSteps[,.(MeanSteps=mean(steps),MedianSteps=median(steps))]
 
 ggplot(TotalSteps,aes(x=steps))+geom_histogram(fill="blue",binwidth = 1000)+labs(title="Daily Steps",x="Steps",y="Frequency")
+print(ggplot)
 
 ```
 
