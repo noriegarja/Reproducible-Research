@@ -21,7 +21,6 @@ To load the data I used read.csv funtion, considering firt file as the headers a
 
 
 ```r
-![Image description](link-to-image)
 library(knitr)
 opts_chunk$set(fig.path = "./figure/")
 data<-read.csv("activity.csv",header = TRUE,na.strings = "NA")
@@ -59,6 +58,7 @@ An histogram of the Total of number of steps by day is calculate and plot by the
 
 
 ```r
+![Image description](link-to-image)
 library(ggplot2)
 library(lattice)
 qplot(StepsPerDay,xlab = "Total Steps per day", ylab = "Frecuency",binwidth=500)
