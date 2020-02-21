@@ -57,7 +57,7 @@ MeanStepPerDay
 An histogram of the Total of number of steps by day is calculate and plot by the next code:
 
 
-```r
+```r fig.width=8, fig.height=8
 library(ggplot2)
 qplot(StepsPerDay,xlab = "Total Steps per day", 
       ylab = "Frecuency",binwidth=500)
@@ -125,7 +125,7 @@ MissingValues
 ## Make an Histogram of the number of total steps taken by day
 Following the histogram which show the total steps taken by day, in thi section I consider the advantage for the data.table function. Folowing the code and the histogram.
 
-```r
+```r 
 activity<-data.table::fread(input="activity.csv")
 TotalSteps<-activity[,c(lapply(.SD,sum)),.SDcols=c("steps"),by=.(date)]
 TotalSteps[,.(MeanSteps=mean(steps),MedianSteps=median(steps))]
@@ -136,7 +136,7 @@ TotalSteps[,.(MeanSteps=mean(steps),MedianSteps=median(steps))]
 ## 1:        NA          NA
 ```
 
-```r
+```r fig.width=8, fig.height=8
 ggplot(TotalSteps,aes(x=steps))+
   geom_histogram(fill="blue",binwidth = 1000)+
   labs(title="Daily Steps",x="Steps",y="Frequency")
@@ -152,7 +152,7 @@ ggplot(TotalSteps,aes(x=steps))+
 ## Are there differences in activity patterns between weekdays and weekends?
 Building a factor variable considering weeks and weekends as follow:
 
-```r
+```r fig.width=8, fig.height=8
 data$date<-as.POSIXct(data$date)
 dataFix <-data
 for(i in unique(dataFix$interval)) {
