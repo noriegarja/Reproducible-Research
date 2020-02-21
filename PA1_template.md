@@ -80,7 +80,7 @@ To calculate the Mean and the Median number step by day, I used the following co
 For the Time series plot average number steps taken and the 5-minute interval that, on average, contains the maximun numer of step, resulting a graphics, I code the following:
 
 
-```r
+```r fig.width=8, fig.height=8
 AveDayActPatt<-aggregate(x=list(meanSteps=data$steps),
                          by=list(interval=data$interval),
                          FUN=mean,na.rm=TRUE)
