@@ -21,6 +21,7 @@ To load the data I used read.csv funtion, considering firt file as the headers a
 
 
 ```r
+![Image description](link-to-image)
 library(knitr)
 opts_chunk$set(fig.path = "./figure/")
 data<-read.csv("activity.csv",header = TRUE,na.strings = "NA")
