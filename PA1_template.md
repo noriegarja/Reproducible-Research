@@ -61,9 +61,8 @@ An histogram of the Total of number of steps by day is calculate and plot by the
 library(ggplot2)
 library(lattice)
 qplot(StepsPerDay,xlab = "Total Steps per day", ylab = "Frecuency",binwidth=500)
-![Test Image 1](plot1.png)
 ```
-
+![Test Image 1](3DTest.png)
 ![](./figure/unnamed-chunk-2-1.png)<!-- -->
 
 
