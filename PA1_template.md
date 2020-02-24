@@ -22,7 +22,6 @@ To load the data I used read.csv funtion, considering firt file as the headers a
 
 ```r
 library(knitr)
-opts_chunk$set(fig_path="./figure/")
 data<-read.csv("activity.csv",header = TRUE,na.strings = "NA")
 head(data)
 ```
@@ -45,7 +44,6 @@ The result is the next:
 
 
 ```r
-opts_chunk$set(fig_path="./figure/")
 StepsPerDay<-tapply(data$steps,data$date,sum,na.rm = TRUE)
 MeanStepPerDay<-mean(StepsPerDay)
 MeanStepPerDay
@@ -59,7 +57,6 @@ An histogram of the Total of number of steps by day is calculate and plot by the
 
 
 ```r
-opts_chunk$set(fig_path="./figure/")
 library(ggplot2)
 qplot(StepsPerDay,xlab = "Total Steps per day", 
       ylab = "Frecuency",binwidth=500)
@@ -93,7 +90,6 @@ For the Time series plot average number steps taken and the 5-minute interval th
 
 
 ```r
-opts_chunk$set(fig_path="./figure/")
 AveDayActPatt<-aggregate(x=list(meanSteps=data$steps),
                          by=list(interval=data$interval),
                          FUN=mean,na.rm=TRUE)
@@ -111,7 +107,6 @@ ggplot(data = AveDayActPatt,aes(x=interval,y=meanSteps))+
 
 
 ```r
-opts_chunk$set(fig_path="./figure/")
 MaxSteps<-which.max(AveDayActPatt$meanSteps)
 MostOfSteps<-gsub("([0-9]{1,2})([0-9]{2})","\\1:\\2",
                   AveDayActPatt[MaxSteps,"interval"])
@@ -140,7 +135,6 @@ MissingValues
 Following the histogram which show the total steps taken by day, in thi section I consider the advantage for the data.table function. Folowing the code and the histogram.
 
 ```r
-opts_chunk$set(fig_path="./figure/")
 activity<-data.table::fread(input="activity.csv")
 TotalSteps<-activity[,c(lapply(.SD,sum)),.SDcols=c("steps"),by=.(date)]
 TotalSteps[,.(MeanSteps=mean(steps),MedianSteps=median(steps))]
@@ -168,7 +162,6 @@ ggplot(TotalSteps,aes(x=steps))+
 Building a factor variable considering weeks and weekends as follow:
 
 ```r
-opts_chunk$set(fig_path="./figure/")
 data$date<-as.POSIXct(data$date)
 dataFix <-data
 for(i in unique(dataFix$interval)) {
